@@ -4,24 +4,53 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class ImageExample extends Frame {
+class Hero{
+    protected int x;
+    protected int y;
+    protected String imagePath = "hero.png";
+    protected BufferedImage image;
 
-    private BufferedImage image;
-
-    public ImageExample(String imagePath) {
+    Hero(int width, int height){
         try {
-            // Load the image using ImageIO
             image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.x = (width / 2) - (image.getWidth()/2);
+        this.y = height - (2 * image.getHeight());
+    }
 
-        // Set frame properties
-//        setTitle("AWT Image Example");
-        setSize(image.getWidth()*3, image.getHeight()*3); // Set size to match image
+    int getX(){
+        return x;
+    }
+
+    int getY(){
+        return y;
+    }
+
+    BufferedImage getImage(){
+        return image;
+    }
+
+    void left(){
+        this.x--;
+    }
+
+    void right(){
+        this.x++;
+    }
+}
+
+
+public class ImageExample extends Frame {
+    int width = 640;
+    int height = 480;
+    Hero hero;
+    public ImageExample() {
+        hero = new Hero(width, height);
+        setBackground(Color.BLACK);
+        setSize(width, height); // Set size to match image
         setVisible(true);
-
-        // Add a window listener to close the frame
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 System.exit(0);
@@ -31,12 +60,10 @@ public class ImageExample extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        // Draw the image
-        g.drawImage(image, 10, 40, this);
+        g.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
     }
 
     public static void main(String[] args) {
-        // Replace "path/to/your/image.jpg" with the actual path to your image file
-        new ImageExample("hero.png");
+        new ImageExample();
     }
 }
