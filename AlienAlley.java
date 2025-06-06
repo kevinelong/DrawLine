@@ -4,6 +4,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 class Sprite{
@@ -48,6 +50,17 @@ class Sprite{
     void right(){
         this.x++;
     }
+
+    void up(){
+        this.y--;
+    }
+
+    void down(){
+        this.y++;
+    }
+    void update(int ms){
+        down();
+    }
 }
 class Hero extends Sprite{
     Hero(int width, int height, String imagePath) {
@@ -55,13 +68,25 @@ class Hero extends Sprite{
         this.y = height - (2 * image.getHeight());
     }
 }
-
-public class ImageExample extends Frame implements KeyListener {
+class GameTask extends TimerTask{
+    Sprite sprite;
+    AlienAlley game;
+    GameTask(Sprite sprite, AlienAlley game){
+        this.game = game;
+        this.sprite = sprite;
+    }
+    @Override
+    public void run() {
+        sprite.update(100);
+        game.paint(game.getGraphics());
+    }
+}
+public class AlienAlley extends Frame implements KeyListener {
     int width = 640;
     int height = 480;
     Hero hero;
     Sprite enemy;
-    public ImageExample() {
+    public AlienAlley() {
         hero = new Hero(width, height, "hero.png");
         enemy = new Sprite(width, height, "alien.png");
         setBackground(Color.BLACK);
@@ -73,6 +98,10 @@ public class ImageExample extends Frame implements KeyListener {
                 System.exit(0);
             }
         });
+        var timer = new Timer();
+        GameTask task = new GameTask(enemy, this);
+        timer.scheduleAtFixedRate(task, 10, 10);
+
     }
 
     @Override
@@ -82,7 +111,7 @@ public class ImageExample extends Frame implements KeyListener {
     }
 
     public static void main(String[] args) {
-        new ImageExample();
+        new AlienAlley();
     }
 
     @Override
