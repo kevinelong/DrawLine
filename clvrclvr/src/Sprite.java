@@ -6,6 +6,8 @@ import java.io.IOException;
 public class Sprite{
     protected int x;
     protected int y;
+    protected int mx;
+    protected int my;
     protected int width;
     protected int height;
     protected String imagePath;
@@ -39,21 +41,24 @@ public class Sprite{
     }
 
     void left(){
-        this.x--;
+        this.mx--;
     }
 
     void right(){
-        this.x++;
+        this.mx++;
     }
 
     void up(){
-        this.y--;
+        this.my--;
     }
 
     void down(){
-        this.y++;
+        this.my++;
     }
     void update(int ms){
-        down();
+        this.x = x > width ? 0 : x + mx;
+        this.y = y > height ? 0 : y + my;
+        this.x = x < 0 ? width : x;
+        this.y = y < 0 ? height : y;
     }
 }

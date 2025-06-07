@@ -1,15 +1,16 @@
+import java.util.ArrayList;
 import java.util.TimerTask;
 
 public class GameTask extends TimerTask {
-    Sprite sprite;
+    ArrayList<Sprite> spriteList;
     Main game;
-    GameTask(Sprite sprite, Main game){
+    GameTask(ArrayList<Sprite> spriteList, Main game){
         this.game = game;
-        this.sprite = sprite;
+        this.spriteList = spriteList;
     }
     @Override
     public void run() {
-        sprite.update(100);
+        spriteList.forEach(s -> s.update(100));
         game.paint(game.getGraphics());
     }
 }

@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,7 +12,10 @@ public class Main extends Frame implements KeyListener {
     Sprite enemy;
     public Main() {
         hero = new Hero(width, height, "hero.png");
-        enemy = new Sprite(width, height, "alien.png");
+        enemy = new Enemy(width, height, "alien.png");
+        var spriteList = new ArrayList<Sprite>();
+        spriteList.add(hero);
+        spriteList.add(enemy);
         setBackground(Color.BLACK);
         addKeyListener(this);
         setSize(width, height); // Set size to match image
@@ -22,7 +26,7 @@ public class Main extends Frame implements KeyListener {
             }
         });
         var timer = new Timer();
-        GameTask task = new GameTask(enemy, this);
+        GameTask task = new GameTask(spriteList, this);
         timer.scheduleAtFixedRate(task, 10, 10);
 
     }
