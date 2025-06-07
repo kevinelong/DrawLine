@@ -27,12 +27,16 @@ public class Main extends Frame implements KeyListener {
         });
         var timer = new Timer();
         GameTask task = new GameTask(spriteList, this);
-        timer.scheduleAtFixedRate(task, 10, 10);
+        timer.scheduleAtFixedRate(task, 0, 35);
 
     }
 
     @Override
     public void paint(Graphics g) {
+        // Clear the screen to black
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, width, height);
+
         g.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
         g.drawImage(enemy.getImage(), enemy.getX(), enemy.getY(), this);
     }
