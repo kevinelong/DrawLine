@@ -1,3 +1,5 @@
+package clvrclvr.src;
+
 public class Enemy extends Sprite{
     Enemy(int width, int height, String imagePath) {
         super(width, height, imagePath);

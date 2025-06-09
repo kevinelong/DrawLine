@@ -1,9 +1,12 @@
+package clvrclvr.src;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class Main extends Frame implements KeyListener {
     int width = 640;
@@ -28,7 +31,6 @@ public class Main extends Frame implements KeyListener {
         var timer = new Timer();
         GameTask task = new GameTask(spriteList, this);
         timer.scheduleAtFixedRate(task, 0, 35);
-
     }
 
     @Override
